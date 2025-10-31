@@ -26,7 +26,6 @@ project-root/
 ├── db/
 │   └── init.sql          # Script de inicialización de BD
 ├── docker-compose.yml    # Configuración de servicios Docker
-├── .env                  # Variables de entorno (no subir a Git)
 ├── .env.example          # Ejemplo de variables de entorno
 └── README.md             # Este archivo
 ```
@@ -35,10 +34,9 @@ project-root/
 
 - Docker Desktop instalado
 - Docker Compose instalado
-- Cuenta en Docker Hub (para push de imágenes)
 - Git instalado
 
-## Configuración Inicial
+## Inicio Rápido
 
 ### 1. Clonar el repositorio
 
@@ -47,20 +45,15 @@ git clone https://github.com/Daza04/YOHAN_DAZA_PARCIAL_2.git
 cd YOHAN_DAZA_PARCIAL_2
 ```
 
-### 2. Configurar variables de entorno
+### 2. Levantar los servicios
+
+**¡Eso es todo!** Las variables de entorno ya están configuradas en el `docker-compose.yml`:
 
 ```bash
-cp .env.example .env
+docker-compose up -d
 ```
 
-Editar el archivo `.env` con tus credenciales (opcional, ya tiene valores por defecto):
-
-```env
-DB_HOST=db
-DB_NAME=app_db
-DB_USER=appuser
-DB_PASSWORD=secure_password_123
-```
+La aplicación estará disponible en: **http://localhost:8080**
 
 ## Construcción y Despliegue
 
@@ -119,7 +112,7 @@ curl -X POST http://localhost:8080/users.php \
 
 ```bash
 docker exec -it mysql-db mysql -u appuser -p
-# Contraseña: secure_password_123 (o la que hayas configurado en .env)
+# Contraseña: secure_password_123
 ```
 
 Comandos útiles dentro de MySQL:

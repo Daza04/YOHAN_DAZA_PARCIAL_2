@@ -8,10 +8,10 @@ services:
     ports:
       - "8080:80"
     environment:
-      - DB_HOST=${DB_HOST}
-      - DB_NAME=${DB_NAME}
-      - DB_USER=${DB_USER}
-      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_HOST=db
+      - DB_NAME=app_db
+      - DB_USER=appuser
+      - DB_PASSWORD=secure_password_123
     depends_on:
       - db
     networks:
@@ -23,10 +23,10 @@ services:
     image: mysql:8
     container_name: mysql-db
     environment:
-      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
-      - MYSQL_DATABASE=${DB_NAME}
-      - MYSQL_USER=${DB_USER}
-      - MYSQL_PASSWORD=${DB_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=secure_password_123
+      - MYSQL_DATABASE=app_db
+      - MYSQL_USER=appuser
+      - MYSQL_PASSWORD=secure_password_123
     volumes:
       - mysql-data:/var/lib/mysql
       - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
@@ -36,7 +36,7 @@ services:
       - app-network
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${DB_PASSWORD}"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-psecure_password_123"]
       interval: 10s
       timeout: 5s
       retries: 5
