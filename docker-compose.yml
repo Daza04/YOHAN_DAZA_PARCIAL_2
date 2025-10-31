@@ -13,7 +13,8 @@ services:
       - DB_USER=appuser
       - DB_PASSWORD=secure_password_123
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     networks:
       - app-network
     restart: unless-stopped
@@ -37,9 +38,10 @@ services:
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-psecure_password_123"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 30s
 
 # Volumen para persistencia de datos
 volumes:
